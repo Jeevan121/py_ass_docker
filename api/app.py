@@ -3,9 +3,11 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 CORS(app, resources={r"*": {"origins": "*"}})
 
 @app.route('/stats')
+@cross_origin()
 def stats():
     cpu = psutil.cpu_percent()
     ram = psutil.virtual_memory().percent
