@@ -1,0 +1,38 @@
+version: '3'
+services:
+  nginx:
+   ## build: ./nginx
+    image: jeeva121/nginx_doc:dckr
+    container_name: examplenginx 
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+  
+  frontend:
+    #build: ./sys-stats/
+    image: jeeva121/frontend_doc:dckr
+    container_name: react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./react:/frontend
+      - node-modules:/frontend/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    #build: ./api/
+    image: jeeva121/flask_backend_doc:dckr
+    container_name: flaskapp
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flaskapp:/backend
+  
+volumes:
+  node-modules:
+  flaskapp:
