@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx
+    container_name: examplenginx 
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+  
+  frontend:
+    build: ./sys-stats/
+    container_name: react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./react:/frontend
+      - node-modules:/frontend/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build: ./api/
+    container_name: flaskapp
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flaskapp:/backend
+  
+volumes:
+  node-modules:
+  flaskapp:
