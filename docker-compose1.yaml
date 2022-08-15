@@ -14,7 +14,7 @@ services:
   
   frontend:
     #build: ./sys-stats/
-    image: jeeva121/frontend_doc:dckr
+    image: jeeva121/frontend_v150:v1
     container_name: react
     ports:
       - "3000:3000"
